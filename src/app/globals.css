@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/* ─── Bangladesh Talent Atlas — Design System Tokens (Light Theme) ─── */
+
+:root {
+  /* ─ Color Palette (Bangladesh flag: deep green #006a4e + red #f42a41) ─ */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f0faf5;
+  --color-bg-tertiary: #e6f5ed;
+
+  --color-emerald-50: #e8faf0;
+  --color-emerald-100: #b8f0d1;
+  --color-emerald-200: #88e6b2;
+  --color-emerald-300: #4dd88d;
+  --color-emerald-400: #22c968;
+  --color-emerald-500: #006a4e; /* Bangladesh green */
+  --color-emerald-600: #005a42;
+  --color-emerald-700: #004a36;
+  --color-emerald-800: #003a2a;
+  --color-emerald-900: #002a1e;
+
+  --color-gold-50: #fff9e6;
+  --color-gold-100: #fff0b3;
+  --color-gold-200: #ffe680;
+  --color-gold-300: #ffd94d;
+  --color-gold-400: #f9a825;
+  --color-gold-500: #e8991c;
+  --color-gold-600: #d68a15;
+
+  --color-red-500: #f42a41; /* Bangladesh red disc */
+  --color-red-400: #ff4d63;
+  --color-red-300: #ff7a8a;
+  --color-red-600: #d42030;
+
+  --color-text-primary: #1a2e1a;
+  --color-text-secondary: #3d5c3d;
+  --color-text-muted: #6b8f6b;
+
+  /* ─ Glassmorphism (light mode) ─ */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-bg-light: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(0, 106, 78, 0.15);
+  --glass-border-hover: rgba(0, 106, 78, 0.35);
+  --glass-blur: 20px;
+  --glass-blur-heavy: 40px;
+
+  /* ─ Typography ─ */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+
+  /* ─ Spacing (4px base) ─ */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ─ Motion ─ */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-glacial: 1000ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ─ Shadows ─ */
+  --shadow-glow-emerald: 0 0 30px rgba(0, 106, 78, 0.2), 0 0 60px rgba(0, 106, 78, 0.08);
+  --shadow-glow-gold: 0 0 30px rgba(249, 168, 37, 0.2), 0 0 60px rgba(249, 168, 37, 0.08);
+  --shadow-glow-red: 0 0 20px rgba(244, 42, 65, 0.2);
+  --shadow-card: 0 4px 24px rgba(0, 106, 78, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 12px 40px rgba(0, 106, 78, 0.15), 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  /* ─ Border radius ─ */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ─ Backgrounds ─ */
+  --background: var(--color-bg-primary);
+  --foreground: var(--color-text-primary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-emerald-400: var(--color-emerald-400);
+  --color-emerald-500: var(--color-emerald-500);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-red-500: var(--color-red-500);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+/* ─── Global Resets ─── */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ─── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-emerald-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-emerald-500);
+}
+
+/* ─── Glassmorphism Utility Classes ─── */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-light {
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-heavy {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur-heavy));
+  -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+  border: 1px solid var(--glass-border);
+}
+
+/* ─── Glow Effects ─── */
+
+.glow-emerald {
+  box-shadow: var(--shadow-glow-emerald);
+}
+
+.glow-gold {
+  box-shadow: var(--shadow-glow-gold);
+}
+
+.glow-red {
+  box-shadow: var(--shadow-glow-red);
+}
+
+.text-glow-emerald {
+  text-shadow: 0 0 30px rgba(0, 106, 78, 0.25), 0 0 60px rgba(0, 106, 78, 0.1);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(249, 168, 37, 0.3), 0 0 40px rgba(249, 168, 37, 0.1);
+}
+
+/* ─── Animation Keyframes ─── */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s var(--ease-out-expo) forwards;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 106, 78, 0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* ─── Gradient Utilities ─── */
+
+.gradient-emerald {
+  background: linear-gradient(135deg, var(--color-emerald-500), var(--color-emerald-400));
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold-500), var(--color-gold-400));
+}
+
+.gradient-hero {
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 106, 78, 0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(244, 42, 65, 0.04) 0%, transparent 40%),
+              var(--color-bg-primary);
+}
+
+.gradient-mesh {
+  background:
+    radial-gradient(at 20% 20%, rgba(0, 106, 78, 0.06) 0%, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(244, 42, 65, 0.04) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(0, 106, 78, 0.03) 0%, transparent 50%);
+}
+
+/* ─── Bangladesh Map Background ─── */
+
+.bd-map-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bd-map-bg svg {
+  width: 78vmin;
+  height: auto;
+  opacity: 0.085;
+  transition: opacity 0.5s ease;
+}
