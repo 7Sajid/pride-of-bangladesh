@@ -1,40 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { supabase } from '@/lib/supabase';
 import type { Achiever } from '@/types/achiever';
-
-const dataFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'custom-achievers.json');
 
 export const dynamic = 'force-dynamic';
 
-function readCustomAchievers(): Achiever[] {
-  try {
-    if (!fs.existsSync(dataFilePath)) {
-      return [];
-    }
-    const data = fs.readFileSync(dataFilePath, 'utf8');
-    return JSON.parse(data) || [];
-  } catch (error) {
-    console.error('Error reading custom achievers file:', error);
-    return [];
-  }
-}
-
-function writeCustomAchievers(achievers: Achiever[]) {
-  try {
-    const dir = path.dirname(dataFilePath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(dataFilePath, JSON.stringify(achievers, null, 2), 'utf8');
-  } catch (error) {
-    console.error('Error writing custom achievers file:', error);
-  }
-}
-
 export async function GET() {
-  const achievers = readCustomAchievers();
-  return NextResponse.json({ success: true, achievers });
+  const { data, error } = await supabase
+    .from('custom_achievers')
+    .select('*')
+    .eq('isDeleted', false);
+
+  if (error) {
+    console.error('Error reading custom achievers:', error);
+    return NextResponse.json({ success: false, achievers: [] });
+  }
+
+  return NextResponse.json({ success: true, achievers: data || [] });
 }
 
 export async function POST(request: NextRequest) {
@@ -48,12 +29,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const current = readCustomAchievers();
-    // Prepend new achiever or update if id matches
-    const updated = [newAchiever, ...current.filter((a) => a.id !== newAchiever.id)];
-    writeCustomAchievers(updated);
+    const { data, error } = await supabase
+      .from('custom_achievers')
+      .upsert(newAchiever)
+      .select()
+      .single();
 
-    return NextResponse.json({ success: true, achiever: newAchiever });
+    if (error) {
+      throw error;
+    }
+
+    return NextResponse.json({ success: true, achiever: data });
   } catch (error: any) {
     console.error('Error saving achiever:', error);
     return NextResponse.json(
@@ -75,17 +61,14 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const current = readCustomAchievers();
-    const existing = current.find((a) => a.id === id);
-    
-    let updated;
-    if (existing) {
-      updated = current.map((a) => (a.id === id ? { ...a, isDeleted: true } : a));
-    } else {
-      updated = [...current, { id, isDeleted: true } as Achiever];
+    const { error } = await supabase
+      .from('custom_achievers')
+      .update({ isDeleted: true })
+      .eq('id', id);
+
+    if (error) {
+      throw error;
     }
-    
-    writeCustomAchievers(updated);
 
     return NextResponse.json({ success: true, id });
   } catch (error: any) {
