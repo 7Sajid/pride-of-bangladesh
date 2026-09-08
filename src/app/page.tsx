@@ -188,7 +188,7 @@ export default function AtlasPage() {
                 <div key={achiever.id} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col cursor-pointer" onClick={() => useAtlasStore.getState().openDetail(achiever.id)}>
                   <div className="flex gap-4 items-center mb-4">
                     <div className="w-16 h-16 rounded-full overflow-hidden shrink-0 border border-gray-100 relative bg-gray-50">
-                      {achiever.photoUrl && <Image src={achiever.photoUrl} alt={achiever.name} fill sizes="64px" className="object-cover" />}
+                      {achiever.photoUrl && <img src={achiever.photoUrl} alt={achiever.name} className="w-full h-full object-cover" />}
                     </div>
                     <div>
                       <h4 className="font-bold text-gray-900 text-sm">{achiever.name}</h4>
